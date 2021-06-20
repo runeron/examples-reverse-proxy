@@ -1,0 +1,21 @@
+# https://docs.docker.com/compose/compose-file/compose-file-v3/
+---
+version: '3.8'
+    
+services:
+
+  traefik:
+    image: traefik:latest
+    ports: ["8080:80","9080:8080"]
+    volumes:
+    - type: bind
+      source: "./../files"
+      target: "/config"
+      read_only: true
+    command: [
+      "--api.insecure=true",
+      "--providers.file.filename=/config/traefik.yaml",
+      "--entrypoints.web.address=:80",
+      "--entrypoints.web.forwardedheaders.insecure=true",
+    ]
+...

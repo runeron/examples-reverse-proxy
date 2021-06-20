@@ -1,0 +1,18 @@
+---
+http:
+  # Incoming traffic from downstream
+  routers:
+    default:
+      entryPoints: ["web"]
+      service: demo
+      rule: "HostRegexp(`{domain:[a-z]+}`)"
+  
+  # Upstream servers
+  services:
+    demo:
+      loadBalancer:
+        servers:
+        - url: "http://demo-1:80"
+        - url: "http://demo-2:80"
+        - url: "http://demo-3:80"
+...

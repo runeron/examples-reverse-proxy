@@ -1,0 +1,11 @@
+# https://docs.docker.com/compose/compose-file/compose-file-v3/
+---
+  version: '3.8'
+  
+  services:
+    demo-1: &whoami
+      image: traefik/whoami:latest
+
+    demo-2: *whoami
+    demo-3: *whoami
+...

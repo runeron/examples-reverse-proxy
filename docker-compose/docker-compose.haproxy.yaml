@@ -1,0 +1,19 @@
+# https://docs.docker.com/compose/compose-file/compose-file-v3/
+---
+version: '3.8'
+    
+services:
+  haproxy:
+    image: haproxy:latest
+    ports: ["8080:80","9080:5000"]
+    volumes:
+    - type: bind
+      source: "./../files"
+      target: "/config"
+      read_only: true
+    command: [
+      "/usr/local/sbin/haproxy",
+      "-f",
+      "/config/haproxy.cfg",
+    ]
+...

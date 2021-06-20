@@ -1,0 +1,18 @@
+# https://docs.docker.com/compose/compose-file/compose-file-v3/
+---
+version: '3.8'
+    
+services:
+  envoy: # https://hub.docker.com/r/envoyproxy/envoy
+    image: envoyproxy/envoy-dev:latest #envoyproxy/envoy:v1.18-latest
+    ports: ["8080:80","9080:9080"]
+    volumes:
+    - type: bind
+      source: "./../files"
+      target: "/config"
+      read_only: true
+    command: [
+      "envoy",
+      "-c","/config/envoy.yaml",
+    ]
+...
